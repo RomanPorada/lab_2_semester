@@ -1,25 +1,50 @@
 import unittest
 from random import randint
 
-text = input("Введіть тест для тусту, щось інше для запуску: ")
-
 def range_search(lst):
-    start_index = 0
-    finish_index = 0
-    
-    list_sort = sorted(lst)
-    
-    if lst == list_sort:
+    if len(lst) < 2:
         return (-1, -1)
-
-    for el in range(len(lst)):
-        if lst[el] != list_sort[el]:
-            start_index = el
+    
+    start_index, finish_index = 0, 0
+    element = lst[0]
+    precipice = False
+    
+    for i in range(len(lst)):
+        if not precipice:
+            if lst[i] >= element:
+                element = lst[i]
+            else:
+                precipice = True
+                smolest_element = lst[i]
+        else:
+            if lst[i] < smolest_element:
+                smolest_element = lst[i]
+    
+    if not precipice:
+        return (-1, -1)
+    
+    for i in range(len(lst)):
+        if lst[i] > smolest_element:
+            start_index = i
             break
-
-    for el in range(len(lst) - 1, -1, -1):
-        if lst[el] != list_sort[el]:
-            finish_index = el
+    
+    element = lst[-1]
+    precipice = False
+    
+    for i in range(len(lst) - 1, -1, -1):
+        if not precipice:
+            if lst[i] <= element:
+                element = lst[i]
+            else:
+                precipice = True
+                biggest_element = lst[i]
+        else:
+            if lst[i] > biggest_element:
+                biggest_element = lst[i]
+    
+    for i in range(len(lst) - 1, -1, -1):
+        if lst[i] < biggest_element:
+            finish_index = i
             break
     
     return (start_index, finish_index)
@@ -42,12 +67,9 @@ class TestRangeSearch(unittest.TestCase):
     
     def test_unsorted_start_and_end(self):
         self.assertEqual(range_search([10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 20]), (0, 9))
-if text == "тест":
-    if __name__ == "__main__":
-        unittest.main()
-else:
-    list = [randint(1, 19) for _ in range(9)]
-    print(list)
 
-    index = range_search(list)
-    print(index)
+
+lst = [randint(1, 19) for _ in range(9)]
+print(lst)
+index = range_search(lst)
+print(index)
