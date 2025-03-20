@@ -15,20 +15,37 @@ n_height = floor(side / H)
 
 n_square = n_weight * n_height
 
-while True:
-    if n_square >= N:
-        print(f"Потрібна дошка з стороною: {side}")
-        break
-    else:
-        new_weight = (n_weight + 1) * W
-        new_height = (n_height + 1) * H
+differnce = abs(W - H)
+if differnce <= 35:
+    while True:
+        if n_square >= N:
+            print(f"Потрібна дошка з стороною: {side}")
+            break
+        else:
+            new_weight = (n_weight + 1) * W
+            new_height = (n_height + 1) * H
 
-        if new_weight < new_height:
-            side = new_weight
-        else: 
-            side = new_height
+            if new_weight < new_height:
+                side = new_weight
+            else: 
+                side = new_height
+            
+            n_weight = floor(side / W)
+            n_height = floor(side / H)
+
+            n_square = n_weight * n_height
+else:
+    def min_board_size(N, W, H):
+        left, right = max(W, H), min(W, H) * N
         
-        n_weight = floor(side / W)
-        n_height = floor(side / H)
+        while left < right:
+            mid = (left + right) // 2
+            if (mid // W) * (mid // H) >= N:
+                right = mid 
+            else:
+                left = mid + 1
+        
+        return left
 
-        n_square = n_weight * n_height
+    rezult = min_board_size(N, W, H)
+    print(f"Потрібна дошка з стороною: {rezult}")
