@@ -4,9 +4,9 @@ from collections import Counter
 
 c = []
 for _ in range(100):
-    N = randint(1, 1012)
-    W = randint(1, 109)
-    H = randint(1, 109)
+    N = 1012
+    W = 1
+    H = 100000000000000000000000000000000000000000000
     
     square = N * W * H
     side = ceil(sqrt(square))
@@ -14,7 +14,7 @@ for _ in range(100):
     n_weight = floor(side / W)
     n_height = floor(side / H)
     n_square = n_weight * n_height
-    cicle = 0
+    cicle = 1
 
     differnce = abs(W - H)
     if differnce <= 35:
