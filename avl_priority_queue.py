@@ -119,16 +119,16 @@ def extract_max_priority(root):
         print(f"Extracting: ({min_node.value}, p={min_node.priority})")
         root = delete_node(root, min_node.priority)
     return root
+if __name__ == "__main__":
+    root = None
+    for _ in range(7):
+        val = randint(1, 19)
+        prio = randint(1, 19)
+        print(f"Inserting: {val} with priority {prio}")
+        root = insert(root, val, prio)
 
-root = None
-for _ in range(7):
-    val = randint(1, 19)
-    prio = randint(1, 19)
-    print(f"Inserting: {val} with priority {prio}")
-    root = insert(root, val, prio)
+    print("\n\nExtracting elements in order of priority:")
+    while root is not None:
+        root = extract_max_priority(root)
 
-print("\n\nExtracting elements in order of priority:")
-while root is not None:
-    root = extract_max_priority(root)
-
-print("\nAll elements extracted, queue is empty!")
+    print("\nAll elements extracted, queue is empty!")
