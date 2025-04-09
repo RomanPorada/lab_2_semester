@@ -67,6 +67,12 @@ def insert(node, value, priority):
     
     return node
 
+def draw_tree_in_console(node, prefix = "", is_left = True):
+    if  node is not None:
+        draw_tree_in_console(node.right, prefix + ("|   " if is_left else "   "), False)
+        print(prefix + ("└── " if is_left else "┌── ") + f"[{node.priority}] {node.value}")
+        draw_tree_in_console(node.left, prefix + ("    " if is_left else "│   "), True)
+
 def get_min_value_node(node):
     """Знаходить вузол з найменшим значенням пріоритету (найлівіший)"""
     if node.left is None:
@@ -119,6 +125,7 @@ def extract_max_priority(root):
         print(f"Extracting: ({min_node.value}, p={min_node.priority})")
         root = delete_node(root, min_node.priority)
     return root
+
 if __name__ == "__main__":
     root = None
     for _ in range(7):

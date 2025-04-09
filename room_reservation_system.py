@@ -109,32 +109,33 @@ def draw_tree_in_console(node, prefix = "", is_left = True):
         print(prefix + ("└── " if is_left else "┌── ") + f"[{node.numer}] {node.name}")
         draw_tree_in_console(node.left, prefix + ("    " if is_left else "│   "), True)
 
-root = None
-while True:
-    action = input("Введіть дію яку хочете виконати: ")
+if __name__ == "__main__":
+    root = None
+    while True:
+        action = input("Введіть дію яку хочете виконати: ")
 
-    if action == "break":
-        break
-    elif action == "add":
-        add = input("Введіть номер для броні та імя бронювальника(дані вводити через кому): ").split(",")
-        root = insert(root, int(add[0]), add[1])
-    elif action == "delete":
-        while True:
-            try:
-                deleted = int(input("Введіть номер кімнати, з якої хочете зняти бронь: "))
-                break
-            except ValueError:
-                print("Введіть число")
-        root = delete(root, deleted)
-    elif action == "reservation":
-        list_reservation_room(root)
-    elif action == "draw":
-        draw_tree_in_console(root)
-    elif action == "check":
-        while True:
-            try:
-                check = int(input("Введіть номер кімнати, яку хочете перевірити на заброньованість: "))
-                break
-            except ValueError:
-                print("Введіть число")
-        search(root, check)
+        if action == "break":
+            break
+        elif action == "add":
+            add = input("Введіть номер для броні та імя бронювальника(дані вводити через кому): ").split(",")
+            root = insert(root, int(add[0]), add[1])
+        elif action == "delete":
+            while True:
+                try:
+                    deleted = int(input("Введіть номер кімнати, з якої хочете зняти бронь: "))
+                    break
+                except ValueError:
+                    print("Введіть число")
+            root = delete(root, deleted)
+        elif action == "reservation":
+            list_reservation_room(root)
+        elif action == "draw":
+            draw_tree_in_console(root)
+        elif action == "check":
+            while True:
+                try:
+                    check = int(input("Введіть номер кімнати, яку хочете перевірити на заброньованість: "))
+                    break
+                except ValueError:
+                    print("Введіть число")
+            search(root, check)
