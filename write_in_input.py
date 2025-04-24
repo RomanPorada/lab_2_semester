@@ -17,7 +17,7 @@ while True:
 def generate_matrix(rows, cols):
     matrix = []
     for _ in range(rows):
-        row = [1 if randint(0, 100) < 70 else 0 for _ in range(cols)]
+        row = [1 if randint(0, 100) < 95 else 0 for _ in range(cols)]
         matrix.append(row)
     
     return matrix
