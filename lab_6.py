@@ -1,3 +1,5 @@
+import time
+
 class Node():
     def __init__(self, employee_id, number_like_beer, list_beer_like = []):
         self.employee_id = employee_id
@@ -103,6 +105,7 @@ def read_input(filename):
     return n, b, matrix
 
 def solve_beer_problem():
+    start = time.perf_counter()
     n, b, preferences = read_input("input.txt")
     root = None
     for i in range(n):
@@ -119,13 +122,15 @@ def solve_beer_problem():
             def count_beers(node):
                 if not node: return
                 for beer in node.list_like_beer:
-                    count[beer] += 1
+                    count[beer] += 1     
                 count_beers(node.left)
                 count_beers(node.right)
             count_beers(root)
             beer = max(picky.list_like_beer, key= lambda x: count[x])
         selected_beers.add(beer)
         root = remove_satisfied(root, selected_beers)
+    finish = time.perf_counter()
+    print(finish - start)
 
     return len(selected_beers)
 
