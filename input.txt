@@ -1,0 +1,40 @@
+# TODO: Додати валідацію email-адреси
+# FIXME: Ця функція падає, якщо передано None
+def process_user_data(user_data):
+    if not user_data:
+        # BUG: Це призводить до падіння при обробці пустих словників
+        return None
+    
+    # HACK: Швидке рішення для отримання імені, працює не завжди коректно
+    name = user_data.get("name", "Unknown")
+    
+    # NOTE: Ми припускаємо, що всі користувачі мають унікальні ID
+    user_id = user_data.get("id", 0)
+    
+    print(f"Processing user: {name} (ID: {user_id})")
+    
+    # OPTIMIZE: Зробити кешування результатів для великих обсягів даних
+    result = do_expensive_calculation(user_id)
+    
+    return result
+
+# REVIEW: Чи правильно ця функція обробляє крайні випадки?
+def do_expensive_calculation(user_id):
+    total = 0
+    for i in range(1, 10000):
+        total += i * user_id
+    return total
+
+# DEPRECATED: Не використовуй цю функцію, буде видалена у наступній версії
+def old_user_lookup(user_id):
+    return {"name": "Old User", "id": user_id}
+
+# XXX: Зверни увагу! Цей блок небезпечний, потребує додаткового тестування
+def risky_operation():
+    try:
+        # HACK: Обхід проблеми з типами через каст до int
+        value = int("123")
+        return value / 0  # BUG: Ділення на нуль!
+    except ZeroDivisionError:
+        # TODO: Реалізувати логування помилки
+        return None
