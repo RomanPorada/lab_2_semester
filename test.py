@@ -1,9 +1,5 @@
 import unittest
-import sys
-import os
 from math import sqrt
-
-sys.path.append(os.path.abspath(r"C:\Users\roman\lab_2_semester\src"))
 
 from lab_9 import search_max_len_cable
 
