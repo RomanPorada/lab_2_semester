@@ -59,15 +59,38 @@ def draw_graph(edges, title, mst_edges=None):
     plt.axis('off')
     plt.show()
 
+def heapify(arr, n, i):
+    largest = i
+    l = 2 * i + 1
+    r = 2 * i + 2
+
+    if l < n and arr[l][0] > arr[largest][0]:
+        largest = l
+
+    if r < n and arr[r][0] > arr[largest][0]:
+        largest = r
+
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        heapify(arr, n, largest)
+
+
+def heap_sort(arr):
+    n = len(arr)
+
+    for i in range(n // 2, -1, -1):
+        heapify(arr, n, i)
+
+    for i in range(n - 1, 0, -1):   
+        (arr[i], arr[0]) = (arr[0], arr[i])
+        heapify(arr, i, 0)
+
 def kruskal_mst(filename):
     edges, nodes = read_edges_from_csv(filename)
     if not nodes:
-        return -1
+        return -1, [], []
 
-    for i in range(len(edges)):
-        for j in range(0, len(edges)-i-1):
-            if edges[j] > edges[j+1]:
-                edges[j], edges[j+1] = edges[j+1], edges[j]
+    heap_sort(edges)
 
     uf = UnionFind(nodes)
     mst_weight = 0
